@@ -71,7 +71,7 @@ module "tfe_instance" {
 
 # IAM Role, Policy and Instance Profile 
 resource "aws_iam_role" "tfe_role" {
-  name               = "tfe_role"
+  name               = "${var.owner}_tfe_md_role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -89,12 +89,12 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "tfe_profile" {
-  name = "tfe_profile"
+  name = "${var.owner}_tfe_md_profile"
   role = aws_iam_role.tfe_role.name
 }
 
 resource "aws_iam_policy" "tfe_cloudwatch" {
-  name   = "tfe_cloudwatch_policy"
+  name   = "${var.owner}_tfe_md_cloudwatch_policy"
   path   = "/"
   policy = <<EOF
 {
